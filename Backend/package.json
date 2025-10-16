@@ -4,5 +4,19 @@
     "express": "^5.1.0",
     "imagekit": "^6.0.0",
     "mongoose": "^8.19.1"
-  }
+  },
+  "type": "module",
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node --env-file=.env --watch server.js",
+    "dev": "nodemon server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
