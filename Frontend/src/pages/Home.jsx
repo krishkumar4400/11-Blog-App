@@ -1,6 +1,8 @@
 import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
 import BlogList from '../components/BlogList';
+import Footer from '../components/Footer';
+import NewsLetter from '../components/NewsLetter';
 
 const Home = () => {
   return (
@@ -9,6 +11,8 @@ const Home = () => {
       <Navbar/>
       <Hero/>
       <BlogList/>
+      <NewsLetter/>
+      <Footer/>
     </div>
   )
 }
