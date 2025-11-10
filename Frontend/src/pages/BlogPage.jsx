@@ -143,43 +143,34 @@ const BlogPage = () => {
         <p className="font-semibold my-4">Share this article on social media</p>
 
         <div className="flex items-center">
-          <img src={assets.facebook_icon} width={50} alt="facebook_icon" />
-          <img src={assets.twitter_icon} width={50} alt="twitter_icon" />
-          <img src={assets.googleplus_icon} width={50} alt="googleplus_icon" />
+          <FacebookShareButton url={blogUrl} quote={data.title}>
+            <FacebookIcon size={40} round />
+          </FacebookShareButton>
+
+          <WhatsappShareButton url={blogUrl} title={data.title}>
+            <WhatsappIcon size={40} round />
+          </WhatsappShareButton>
+
+          <LinkedinShareButton url={blogUrl} quote={data.title}>
+            <LinkedinIcon size={40} round />
+          </LinkedinShareButton>
+
+          <TwitterShareButton url={blogUrl} title={data.title}>
+            <TwitterIcon size={40} round />
+          </TwitterShareButton>
+
+          <p className="pb-10">
+            <Copy
+              size={20}
+              onClick={copyBlogUrl}
+              className="text-gray-600 hover:scale-105 active:scale-95 cursor-pointer transition-all duration-200"
+            />
+          </p>
         </div>
       </div>
 
       {/* test Share  */}
-      <div>
-        <FacebookShareButton
-          url={blogUrl}
-          quote={data.title}
-        >
-          <FacebookIcon size={40} round />
-        </FacebookShareButton>
-
-        <WhatsappShareButton
-          url={blogUrl}
-          title={data.title}
-        >
-          <WhatsappIcon size={40} round />
-        </WhatsappShareButton>
-
-        <LinkedinShareButton
-          url={blogUrl}
-          quote={data.title}
-        >
-          <LinkedinIcon size={40} round />
-        </LinkedinShareButton>
-
-        <TwitterShareButton url={blogUrl} title={data.title}>
-          <TwitterIcon size={40} round />
-        </TwitterShareButton>
-
-        <p className='pb-10'>
-          <Copy size={20} onClick={copyBlogUrl} className='text-gray-600 hover:scale-105 active:scale-95 cursor-pointer transition-all duration-200'/>
-        </p>
-      </div>
+      <div></div>
     </div>
   ) : (
     <div>Loading...</div>
