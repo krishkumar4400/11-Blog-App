@@ -1,10 +1,20 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {Routes, Route} from 'react-router-dom';
 import Home from './pages/Home.jsx';
 import BlogPage from './pages/BlogPage.jsx';
 import Login from './pages/Login.jsx';
 
 const App = () => {
+
+  // useEffect(() => {
+  //   const handleRightClick = (e) => e.preventDefault();
+  //   document.addEventListener("contextmenu", handleRightClick);
+
+  //   return () => {
+  //     document.removeEventListener("contextmenu", handleRightClick);
+  //   };
+  // }, []);
+  
   return (
     <div>
       <Routes>
