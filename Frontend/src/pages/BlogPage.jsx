@@ -139,7 +139,7 @@ const BlogPage = () => {
       </div>
 
       {/* Share Buttons */}
-      <div className="my-24 max-w-3xl mx-auto  px-4">
+      <div className="my-24 max-w-3xl mx-auto px-4">
         <p className="font-semibold my-4">Share this article on social media</p>
 
         <div className="flex items-center">
@@ -159,7 +159,7 @@ const BlogPage = () => {
             <TwitterIcon size={40} round />
           </TwitterShareButton>
 
-          <p className="pb-10">
+          <p className="">
             <Copy
               size={20}
               onClick={copyBlogUrl}
