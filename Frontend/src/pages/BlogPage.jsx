@@ -15,6 +15,8 @@ import {
   TwitterIcon
 } from 'react-share';
 import { Copy, ClipboardPaste } from "lucide-react";
+import Footer from '../components/Footer';
+import Loader from '../components/Loader';
 
 
 const BlogPage = () => {
@@ -159,21 +161,28 @@ const BlogPage = () => {
             <TwitterIcon size={40} round />
           </TwitterShareButton>
 
-          <p className="">
+          <p className="relative group ">
             <Copy
               size={20}
               onClick={copyBlogUrl}
-              className="text-gray-600 hover:scale-105 active:scale-95 cursor-pointer transition-all duration-200"
+              className="text-gray-600 hover:scale-105 active:scale-95 cursor-pointer transition-all duration-200 "
             />
+            <p>
+              <ul className="hidden group-hover:flex absolute top-0 left-5 z-10 flex-col justify-center">
+                <li>Hello </li>
+                <li>Hey</li>
+                <li>WhatsApp</li>
+              </ul>
+            </p>
           </p>
         </div>
       </div>
-
-      {/* test Share  */}
-      <div></div>
+      
+      <Footer/>
+      
     </div>
   ) : (
-    <div>Loading...</div>
+    <Loader/>
   );
 }
 
