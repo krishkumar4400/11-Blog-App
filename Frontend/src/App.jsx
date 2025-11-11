@@ -2,7 +2,12 @@ import React, { useEffect } from 'react'
 import {Routes, Route} from 'react-router-dom';
 import Home from './pages/Home.jsx';
 import BlogPage from './pages/BlogPage.jsx';
-import Login from './pages/Login.jsx';
+import Dashboard from './pages/Admin/Dashboard.jsx';
+import AddBlogs from './pages/Admin/AddBlogs.jsx';
+import ListBlog from './pages/Admin/ListBlog.jsx';
+import Comments from './pages/Admin/Comments.jsx';
+import Layout from './pages/Admin/Layout.jsx';
+import Login from './components/Admin/Login.jsx';
 
 const App = () => {
 
@@ -20,7 +25,12 @@ const App = () => {
       <Routes>
         <Route path='/' element={<Home/>}/>
         <Route path='/blog/:id' element={<BlogPage/>}/>
-        <Route path='/login' element={<Login/>} />
+        <Route path='/admin' element={true ? <Layout/> : <Login/>}>
+          <Route index element={<Dashboard/>} />
+          <Route path='addblog' element={<AddBlogs/>} />
+          <Route path='listblog' element={<ListBlog/>} />
+          <Route path='comments' element={<Comments/>} />
+        </Route>
       </Routes>
     </div>
   )
