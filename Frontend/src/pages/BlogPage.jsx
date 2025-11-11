@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { assets, blog_data, comments_data } from '../assets/assets';
-import Navbar from '../components/Navbar';
+import { assets, blog_data, comments_data } from '../assets/assets.js';
+import Navbar from '../components/Navbar.jsx';
 import moment from 'moment';
 import {
   FacebookShareButton,
