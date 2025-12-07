@@ -1,11 +1,61 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { comments_data } from '../../assets/assets';
 
 const Comments = () => {
+  const [comments, setComments] = useState([]);
+  const [filter, setFilter] = useState("Not Approved");
+
+  const fetchCommentsData = async () => {
+    setComments(comments_data);
+  }
+
+  useEffect (() => {
+    fetchCommentsData();
+  }, [comments, setComments]);
+
   return (
-    <div>
-      
+    <div className="flex-1 bg-blue-50/50 px-5 pt-5 sm:pt-12 sm:pl-16">
+      <div className="flex justify-between items-center max-w-3xl">
+        <h1>Comments</h1>
+        <div className="flex gap-4">
+          <button
+            onClick={() => setFilter("Approved")}
+            className={`shadow border rounded-full px-4 py-1 cursor-pointer text-xs ${
+              filter === "Approved" ? "text-primary" : "text-gray-700"
+            }`}
+          >
+            Approved
+          </button>
+          <button
+            onClick={() => setFilter("Not Approved")}
+            className={`shadow border rounded-full px-4 py-1 cursor-pointer text-xs ${
+              filter === "Not Approved" ? "text-primary" : "text-gray-700"
+            }`}
+          >
+            Not Approved
+          </button>
+        </div>
+      </div>
+
+      <div className='relative h-4/5 max-w-3xl overflow-x-auto mt-4 bg-white shadow rounded-lg scrollbar-hide'>
+      <table className='w-full text-sm text-gray-500'>
+        <thead className='text-xs text-gray-700 text-left uppercase'>
+          <tr>
+            <th scope='col' className='px-6 py-4'>Blog title & comment</th>
+            <th scope='col' className='px-6 py-4 max-sm:hidden'>Date</th>
+            <th scope='col' className='px-6 py-4'>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+
     </div>
-  )
+  );
 }
 
 export default Comments

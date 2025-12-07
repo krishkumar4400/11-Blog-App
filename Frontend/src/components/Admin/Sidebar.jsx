@@ -70,7 +70,7 @@ const SidebarLink = ({ to, icon, label, collapsed }) => {
       className={({ isActive }) =>
         `flex items-center gap-3 p-3 md:px-6 cursor-pointer transition-all duration-150 ${
           isActive
-            ? "bg-blue-100 text-blue-700 font-semibold border-r-[4px] border-blue-600"
+            ? "bg-blue-100 text-blue-600 font-semibold border-r-[4px] border-blue-800"
             : "text-gray-700 hover:bg-gray-100"
         }`
       }
