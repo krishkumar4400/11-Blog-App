@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import connectDB from './config/db.js';
 import adminRouter from './routes/adminRoutes.js';
+import blogRouter from './routes/blogRoutes.js';
 
 const app = express();
 
@@ -14,8 +15,12 @@ app.use(express.json());
 app.get('/', (req,res) => {
     res.send("hello Express");
 });
+
 // admin router
 app.use('/api/admin',adminRouter);
+
+// blog router
+app.use('/api', blogRouter); 
 
 const port = process.env.PORT || 4000;
 
