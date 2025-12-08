@@ -1,4 +1,6 @@
 import jwt from "jsonwebtoken";
+import Blog from "../Model/Blog.js";
+import Comment from "../Model/Comment.js";
 
 export const adminLogin = async (req, res) => {
   try {
@@ -42,3 +44,94 @@ export const adminLogin = async (req, res) => {
     });
   }
 };
+
+export const getAllBlogsAdmin = async (req,res) => {
+  try {
+    const blogs = await Blog.find({}).sort({createdAt: -1});
+    
+    res.json({
+      blogs, 
+      success: true 
+    });
+
+  } catch (error) {
+    console.log(error.message);
+    return res.json({
+      message: "can't get blog",
+      success: false 
+    });
+  }
+}
+
+export const getAllcomments = async (req,res) => {
+  try {
+    const comments = await Comment.find({}).populate("blog").sort({createdAt: -1});
+    res.json({
+      comments, 
+      success: true 
+    });
+
+  } catch (error) {
+    console.log(error.message);
+  }
+}
+
+export const getDashboardData = async (req,res) => {
+  try {
+    const recentBlogs = await Blog.find({}).sort({createdAt: -1}).limit(5);
+    const blogs = await Blog.countDocuments();
+    const comments = await Comment.countDocuments();
+    const drafts = await Blog.countDocuments({isPublished: false});
+
+    const dashboardData = {
+      recentBlogs, blogs, comments, drafts 
+    };
+
+    res.json({
+      dashboardData,
+      success: false 
+    });
+
+  } catch (error) {
+    console.log(error.message);
+  }
+}
+
+export const deleteComment = async (req,res) => {
+  try {
+    const {commentId} = req.body;
+
+    await Comment.findByIdAndDelete(commentId);
+
+    res.json({
+      message: "comment deleted successfully",
+      success: true 
+    });
+
+  } catch (error) {
+    console.log(error.message);
+    res.json({
+      message: "can't delete the comment",
+      success: false 
+    });
+  }
+}
+
+export const approveComment = async (req,res) => {
+  try {
+    const {commentId} = req.body;
+    const comment = await Comment.findByIdAndUpdate(commentId, {isApproved : true});
+
+    res.json({
+      message: "comment approved successfully",
+      success: true,
+    });
+
+  } catch (error) {
+    console.log(error.message);
+    res.json({
+      message: "can't approve the comment",
+      success: false 
+    });
+  }
+}
