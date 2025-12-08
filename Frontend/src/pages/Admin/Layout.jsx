@@ -2,10 +2,12 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { assets } from "../../assets/assets.js";
 import Sidebar from "../../components/Admin/Sidebar.jsx";
 import { useEffect, useRef, useState } from "react";
+import { useAppContext } from "../../context/AppContext.jsx";
+import toast from "react-hot-toast";
 
 const Layout = () => {
+  const {axios} = useAppContext();
   const navigate = useNavigate();
-  const logout = () => navigate("/");
 
   const [width, setWidth] = useState(250); // initial sidebar width
   const [isResizing, setIsResizing] = useState(false);
@@ -56,6 +58,19 @@ const Layout = () => {
     localStorage.setItem("sidebarCollapsed", collapsed);
   }, [width, collapsed]);
 
+    const logout = async () => {
+      try {
+        const {data} = await axios.get('/api/admin/logout');
+        data.success ? toast.success(data.message) : toast.error(data.message);
+                      axios.defaults.headers.common["Authorization"] =
+                        data.token;
+
+        localStorage.clear('token');
+      } catch (error) {
+        console.log(error.message);
+        toast.error(error.message);
+      }
+    }
 
   return (
     <>

@@ -9,6 +9,8 @@ import Comments from './pages/Admin/Comments.jsx';
 import Layout from './pages/Admin/Layout.jsx';
 import Login from './components/Admin/Login.jsx';
 import 'quill/dist/quill.snow.css'
+import {Toaster} from 'react-hot-toast';
+import { useAppContext } from './context/AppContext.jsx';
 
 const App = () => {
 
@@ -20,13 +22,16 @@ const App = () => {
   //     document.removeEventListener("contextmenu", handleRightClick);
   //   };
   // }, []);
+
+  const {token} = useAppContext();
   
   return (
     <div>
+      <Toaster/>
       <Routes>
         <Route path='/' element={<Home/>}/>
         <Route path='/blog/:id' element={<BlogPage/>}/>
-        <Route path='/admin' element={true ? <Layout/> : <Login/>}>
+        <Route path='/admin' element={token ? <Layout/> : <Login/>}>
           <Route index element={<Dashboard/>} />
           <Route path='addblog' element={<AddBlogs/>} />
           <Route path='listblog' element={<ListBlog/>} />

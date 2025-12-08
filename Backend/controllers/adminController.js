@@ -38,6 +38,7 @@ export const adminLogin = async (req, res) => {
       success: true,
     });
   } catch (error) {
+    console.log(error.message)
     res.json({
       message: error.message,
       success: false,
@@ -131,6 +132,21 @@ export const approveComment = async (req,res) => {
     console.log(error.message);
     res.json({
       message: "can't approve the comment",
+      success: false 
+    });
+  }
+}
+
+export const logout = async (req,res) => {
+  try {
+    res.json({
+      message: 'you are logged out',
+      success: true 
+    });
+  } catch (error) {
+    console.log(error.message);
+    res.json({
+      message: "logout failed",
       success: false 
     });
   }
