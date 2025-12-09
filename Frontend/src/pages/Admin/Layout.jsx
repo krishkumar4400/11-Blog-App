@@ -1,4 +1,4 @@
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { assets } from "../../assets/assets.js";
 import Sidebar from "../../components/Admin/Sidebar.jsx";
 import { useEffect, useRef, useState } from "react";
@@ -6,8 +6,7 @@ import { useAppContext } from "../../context/AppContext.jsx";
 import toast from "react-hot-toast";
 
 const Layout = () => {
-  const {axios} = useAppContext();
-  const navigate = useNavigate();
+  const {axios, setToken, navigate} = useAppContext();
 
   const [width, setWidth] = useState(250); // initial sidebar width
   const [isResizing, setIsResizing] = useState(false);
@@ -60,12 +59,11 @@ const Layout = () => {
 
     const logout = async () => {
       try {
-        const {data} = await axios.get('/api/admin/logout');
-        data.success ? toast.success(data.message) : toast.error(data.message);
-                      axios.defaults.headers.common["Authorization"] =
-                        data.token;
-
-        localStorage.clear('token');
+        toast.success("you are logged out");
+        localStorage.removeItem('token');
+        axios.defaults.headers.common["Authorization"] = null;
+        setToken(null);
+        navigate('/');
       } catch (error) {
         console.log(error.message);
         toast.error(error.message);
@@ -76,12 +74,12 @@ const Layout = () => {
     <>
       {/* ---------- Top Navbar ---------- */}
       <div className="flex items-center justify-between px-5 py-3 h-[70px] sm:px-10 border-b border-gray-200 bg-white shadow-sm">
-        <img
-          src={assets.logo}
+        <h1
           onClick={() => navigate("/")}
-          className="w-28 sm:w-40 cursor-pointer"
-          alt="Logo"
-        />
+          className="text-4xl font-bold text-slate-800 cursor-pointer"
+        >
+          Blog
+        </h1>
         <button
           className="text-sm px-8 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-all duration-200"
           onClick={logout}

@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import Blog from "../Model/Blog.js";
 import Comment from "../Model/Comment.js";
+import main from "../config/gemini.js";
 
 export const adminLogin = async (req, res) => {
   try {
@@ -36,6 +37,7 @@ export const adminLogin = async (req, res) => {
     res.json({
       token,
       success: true,
+      message: "You are logged in"
     });
   } catch (error) {
     console.log(error.message)
@@ -90,7 +92,7 @@ export const getDashboardData = async (req,res) => {
 
     res.json({
       dashboardData,
-      success: false 
+      success: true 
     });
 
   } catch (error) {
@@ -148,6 +150,24 @@ export const logout = async (req,res) => {
     res.json({
       message: "logout failed",
       success: false 
+    });
+  }
+}
+
+export const generateContent = async (req,res) => {
+  try {
+    const {prompt} = req.body;
+    const content = await main(prompt + " Generate a blog content for this topic in simple text format");
+    res.json({
+      content,
+      success: true,
+      message: "content generated" 
+    });
+    
+  } catch (error) {
+    console.log(error.message);
+    return res.json({
+      message: "can't generate the content" 
     });
   }
 }

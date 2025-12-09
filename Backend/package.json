@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@google/genai": "^1.32.0",
     "@imagekit/nodejs": "^7.1.1",
     "cors": "^2.8.5",
     "express": "^5.1.0",

@@ -5,10 +5,13 @@ import {
   MessageSquarePlus,
   PenBoxIcon,
 } from "lucide-react";
-import { assets, dashboard_data } from "../../assets/assets.js";
+import { assets } from "../../assets/assets.js";
 import BlogTableItems from "../../components/Admin/BlogTableItems.jsx";
+import { useAppContext } from "../../context/AppContext.jsx";
+import toast from "react-hot-toast";
 
 const Dashboard = () => {
+  const { axios } = useAppContext();
   const [dashboardData, setDashboardData] = useState({
     blogs: 0,
     comments: 0,
@@ -17,7 +20,15 @@ const Dashboard = () => {
   });
 
   const fetchDashboardData = async () => {
-    setDashboardData(dashboard_data);
+    try {
+      const { data } = await axios.get("/api/admin/dashboard-data");
+      data.success
+        ? setDashboardData(data.dashboardData)
+        : toast.error(data.message);
+    } catch (error) {
+      console.log(error.message);
+      toast.error(error.message);
+    }
   };
 
   useEffect(() => {
@@ -30,21 +41,21 @@ const Dashboard = () => {
         <div className="flex items-center gap-4 bg-white p-4 min-w-60 rounded shadow cursor-pointer hover:scale-105 transition-all">
           <img className="w-15" src={assets.dashboard_icon_1} alt="" />
           <div className="text-xl font-semibold text-gray-600">
-            <p>{dashboard_data.blogs}</p>
+            <p>{dashboardData.blogs}</p>
             <p>Blogs</p>
           </div>
         </div>
         <div className="flex items-center gap-4 bg-white p-4 min-w-60 rounded shadow cursor-pointer hover:scale-105 transition-all">
           <img className="w-15" src={assets.dashboard_icon_2} alt="" />
           <div className="text-xl font-semibold text-gray-600">
-            <p>{dashboard_data.comments}</p>
+            <p>{dashboardData.comments}</p>
             <p>Comments</p>
           </div>
         </div>
         <div className="flex items-center gap-4 bg-white p-4 min-w-60 rounded shadow cursor-pointer hover:scale-105 transition-all">
           <img className="w-15" src={assets.dashboard_icon_3} alt="" />
           <div className="text-xl font-semibold text-gray-600">
-            <p>{dashboard_data.drafts}</p>
+            <p>{dashboardData.drafts}</p>
             <p>Drafts</p>
           </div>
         </div>

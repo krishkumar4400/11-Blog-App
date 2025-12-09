@@ -3,7 +3,7 @@ import { useAppContext } from '../../context/AppContext';
 import toast from 'react-hot-toast';
 
 const Login = () => {
-  const {axios, setToken} = useAppContext();
+  const {axios, setToken, navigate} = useAppContext();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -12,6 +12,7 @@ const Login = () => {
         try {
             const {data} = await axios.post('/api/admin/login', {email, password});
             if (data.success) {
+              toast.success(data.message);
               setToken(data.token);
               localStorage.setItem("token", data.token);
               axios.defaults.headers.common["Authorization"] = data.token;
@@ -29,7 +30,10 @@ const Login = () => {
     }
 
   return (
-    <div className="flex items-center justify-center h-screen">
+    <div className="flex relative items-center justify-center h-screen">
+      <div className='absolute top-6 left-6 sm:left-16'>
+        <h1 onClick={() => navigate('/')} className='text-4xl font-bold text-slate-800 cursor-pointer'>Blog</h1>
+      </div>
       <div className="w-full max-w-sm p-7 max-md:m-6 border border-blue-200 shadow-xl shadow-blue-300/40 rounded-lg">
         <div className="flex flex-col items-center justify-center">
           <div className="w-full py-6 text-center">

@@ -1,58 +1,90 @@
-import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import { assets, blog_data, comments_data } from '../assets/assets.js';
-import Navbar from '../components/Navbar.jsx';
-import moment from 'moment';
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { assets, blog_data, comments_data } from "../assets/assets.js";
+import Navbar from "../components/Navbar.jsx";
+import moment from "moment";
 import {
   FacebookShareButton,
   TwitterShareButton,
   LinkedinShareButton,
   WhatsappShareButton,
-
   FacebookIcon,
   WhatsappIcon,
   LinkedinIcon,
-  TwitterIcon
-} from 'react-share';
+  TwitterIcon,
+} from "react-share";
 import { Copy, ClipboardPaste } from "lucide-react";
-import Footer from '../components/Footer';
-import Loader from '../components/Loader';
-
+import Footer from "../components/Footer";
+import Loader from "../components/Loader";
+import { useAppContext } from "../context/AppContext.jsx";
+import toast from "react-hot-toast";
 
 const BlogPage = () => {
-
-  const {id} = useParams();
+  const { id } = useParams();
   const [data, setData] = useState(null);
   const [comments, setComments] = useState([]);
 
-  const[name, setName] = useState('');
-  const[inputComment, setInputComment] = useState('');
+  const [name, setName] = useState("");
+  const [inputComment, setInputComment] = useState("");
 
-  const [copiedUrl, setCopiedUrl] = useState('');
+  const [copiedUrl, setCopiedUrl] = useState("");
 
   const blogUrl = window.location.href;
 
+  const { axios } = useAppContext();
+
   const fetchBlogData = async () => {
-    const data = blog_data.find(blog => blog._id === id);
-    setData(data);
-  }
+    try {
+      const { data } = await axios.get(`/api/blog/get-blog/${id}`);
+      data.success ? setData(data.blog) : toast.error(data.message);
+    } catch (error) {
+      console.log(error.message);
+      toast.error(error.message);
+    }
+  };
 
   const fetchComments = async () => {
-    setComments(comments_data);
-  }
+    try {
+      const { data } = await axios.post("/api/blog/comments", { blogId: id });
+      if(data.success) {
+        setComments(data.comments)
+      }
+    } catch (error) {
+      console.log(error.message);
+      toast.error(error.message);
+    }
+  };
 
-  const addComment = async(e) => {
+  const addComment = async (e) => {
     e.preventDefault();
-  }
+    try {
+      const { data } = await axios.post("/api/blog/add-comment", {
+        name,
+        content: inputComment,
+        blog: id,
+      });
+
+      if (data.success) {
+        toast.success(data.message);
+        setName("");
+        setInputComment("");
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      console.log(error.message);
+      toast.error(error.message);
+    }
+  };
 
   const copyBlogUrl = async (e) => {
     navigator.clipboard.writeText(blogUrl);
-  }
+  };
 
   useEffect(() => {
     fetchBlogData();
     fetchComments();
-  }, [data, comments_data]);
+  }, [data]);
 
   return data ? (
     <div className="relative">
@@ -177,13 +209,12 @@ const BlogPage = () => {
           </p>
         </div>
       </div>
-      
-      <Footer/>
-      
+
+      <Footer />
     </div>
   ) : (
-    <Loader/>
+    <Loader />
   );
-}
+};
 
-export default BlogPage
+export default BlogPage;
