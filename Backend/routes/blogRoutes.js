@@ -10,6 +10,7 @@ import {
 } from "../controllers/blogController.js";
 import upload from "../middlewares/multer.js";
 import auth from "../middlewares/auth.js";
+import { postBlog } from "../controllers/postBlog.js";
 
 const blogRouter = Router();
 
@@ -20,5 +21,6 @@ blogRouter.post("/delete", auth, deleteBlogById);
 blogRouter.post("/toggle-publish", auth, togglePublish);
 blogRouter.post('/add-comment', addComment);
 blogRouter.post('/comments', getBlogComment);
+blogRouter.post('/post-blog', postBlog);
 
 export default blogRouter;

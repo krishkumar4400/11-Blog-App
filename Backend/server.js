@@ -9,7 +9,17 @@ const app = express();
 await connectDB();
 
 // middlewares
-app.use(cors());
+import cors from "cors";
+
+app.use(
+  cors({
+    origin: ["http://localhost:5173", "https://novaiq.vercel.app"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization", "apiKey"],
+    credentials: true,
+  })
+);
+
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
