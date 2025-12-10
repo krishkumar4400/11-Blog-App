@@ -9,7 +9,6 @@ const app = express();
 await connectDB();
 
 // middlewares
-import cors from "cors";
 
 app.use(
   cors({
