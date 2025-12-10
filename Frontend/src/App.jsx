@@ -14,14 +14,14 @@ import { useAppContext } from './context/AppContext.jsx';
 
 const App = () => {
 
-  useEffect(() => {
-    const handleRightClick = (e) => e.preventDefault();
-    document.addEventListener("contextmenu", handleRightClick);
+  // useEffect(() => {
+  //   const handleRightClick = (e) => e.preventDefault();
+  //   document.addEventListener("contextmenu", handleRightClick);
 
-    return () => {
-      document.removeEventListener("contextmenu", handleRightClick);
-    };
-  }, []);
+  //   return () => {
+  //     document.removeEventListener("contextmenu", handleRightClick);
+  //   };
+  // }, []);
 
   const {token} = useAppContext();
   
