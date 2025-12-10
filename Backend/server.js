@@ -12,10 +12,7 @@ await connectDB();
 
 app.use(
   cors({
-    origin: [
-      "http://localhost:5173",
-      "https://blog-app-backend-xked.onrender.com",
-    ],
+    origin: ["http://localhost:5173", "https://blog-rho-ruby-42.vercel.app"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization", "apiKey"],
     credentials: true,
