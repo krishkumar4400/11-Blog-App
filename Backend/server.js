@@ -12,7 +12,10 @@ await connectDB();
 
 app.use(
   cors({
-    origin: ["http://localhost:5173", "https://novaiq.vercel.app"],
+    origin: [
+      "http://localhost:5173",
+      "https://blog-app-backend-xked.onrender.com",
+    ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization", "apiKey"],
     credentials: true,
