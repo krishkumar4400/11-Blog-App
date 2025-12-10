@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
-axios.defaults.baseURL = import.meta.env.VITE_BACKEND_URI;
+axios.defaults.baseURL = 'https://blog-app-backend-xked.onrender.com';
 
 
 const AppContext = createContext();
